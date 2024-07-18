@@ -1,7 +1,7 @@
 ///IMPORTS
 const fs = require('fs');
 const path = require('path');
-const resourceFolderPath = path.join(__dirname, 'src/migrate-aws-firehose-bq/resource');
+const resourceFolderPath = path.join('./resource');
 const axios = require('axios');
 
 ///CONSTANTS
@@ -27,7 +27,7 @@ const execute = () => {
             const fileContent = fs.readFileSync(filePath, 'utf8');
             const existingFirehoseJson = JSON.parse(fileContent);
             const firehosePayload = buildTemporaryFirehosePayload(existingFirehoseJson);
-            const shieldPayload = buildShieldPayload(existingFirehoseJson);
+            const shieldPayload = buildShieldPayload(firehosePayload);
             await axios.post(FIREHOSE_URL, firehosePayload)
                 .then(async response => await axios.post(SHIELD_URL, shieldPayload));
             setTimeout(() => console.log(`Successfully migrated ${existingFirehoseJson.title}`), 1000);
@@ -35,14 +35,32 @@ const execute = () => {
     });
 }
 
+// const executeV2 = () => {
+//     fs.readdir(resourceFolderPath, (err, files) => {
+//         if (err) {
+//             console.log(err);
+//             return;
+//         }
+//         files.forEach(async file => {
+//             const filePath = path.join(resourceFolderPath, file);
+//             const fileContent = fs.readFileSync(filePath, 'utf8');
+//             const existingFirehoseJson = JSON.parse(fileContent);
+//             const firehosePayload = buildTemporaryFirehosePayload(existingFirehoseJson);
+//             const shieldPayload = buildShieldPayload(firehosePayload);
+//             console.log(firehosePayload);
+//             console.log(shieldPayload)
+//             console.log(`Successfully migrated ${firehosePayload.name}`);
+//         });
+//     });
+// }
+
 const buildTemporaryFirehosePayload = (firehose) => {
-    const {title, team, stream_name, spec: {template: {spec: {containers}}}} = firehose;
-    const envAsMap = containers[0].env.reduce((acc, curr) => {
-        acc[curr.key] = curr.value;
-        return acc;
-    });
+    const {metadata: {name}, team, stream_name, spec: {template: {spec: {containers}}}} = firehose;
+    const envAsMap = containers[0].env
+        .map(({name, value}) => ({[name]: value}))
+        .reduce((acc, curr) => ({...acc, ...curr}), {});
     return {
-        title: title.replace("gopay-gl-aws-prod-globalstream", "temp-gopay-gl-aws-prod-globalstream"),
+        title: name.replace("gopay-gl-aws-prod-globalstream", "temp-gopay-gl-aws-prod-globalstream"),
         team: 'gopay-de-app',
         stream_name: 'p-go-gp-aws-central-kraft-globalstream',
         topic_name: envAsMap['SOURCE_KAFKA_TOPIC'],
@@ -85,4 +103,4 @@ const buildShieldPayload = ({title}) => ({
     userId: USER_ID
 })
 
-export default execute;
+executeV2();
