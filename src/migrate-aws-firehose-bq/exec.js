@@ -6,7 +6,7 @@ const axios = require('axios');
 
 ///CONSTANTS
 const ODIN_URL = "http://odin.gtfdata.io";
-const FIREHOSE_URL = `${ODIN_URL}/firehose`;
+const FIREHOSE_URL = `${ODIN_URL}/firehoses`;
 const SHIELD_URL = "http://shield.gtfdata.io/admin/v1beta1/resources";
 
 ///IDS (will provide this)
@@ -30,35 +30,21 @@ const execute = () => {
             const shieldPayload = buildShieldPayload(firehosePayload);
             await axios.post(FIREHOSE_URL, firehosePayload)
                 .then(async response => await axios.post(SHIELD_URL, shieldPayload));
-            setTimeout(() => console.log(`Successfully migrated ${existingFirehoseJson.title}`), 1000);
+            console.log(`Successfully migrated ${existingFirehoseJson.title}`);
         });
     });
 }
 
-// const executeV2 = () => {
-//     fs.readdir(resourceFolderPath, (err, files) => {
-//         if (err) {
-//             console.log(err);
-//             return;
-//         }
-//         files.forEach(async file => {
-//             const filePath = path.join(resourceFolderPath, file);
-//             const fileContent = fs.readFileSync(filePath, 'utf8');
-//             const existingFirehoseJson = JSON.parse(fileContent);
-//             const firehosePayload = buildTemporaryFirehosePayload(existingFirehoseJson);
-//             const shieldPayload = buildShieldPayload(firehosePayload);
-//             console.log(firehosePayload);
-//             console.log(shieldPayload)
-//             console.log(`Successfully migrated ${firehosePayload.name}`);
-//         });
-//     });
-// }
-
-const buildTemporaryFirehosePayload = (firehose) => {
-    const {metadata: {name}, team, stream_name, spec: {template: {spec: {containers}}}} = firehose;
-    const envAsMap = containers[0].env
+const buildEnvMap = (env) => {
+    return env
         .map(({name, value}) => ({[name]: value}))
         .reduce((acc, curr) => ({...acc, ...curr}), {});
+}
+
+const buildTemporaryFirehosePayload = (firehose) => {
+    const {metadata: {name}, spec: {template: {spec: {containers}}}} = firehose;
+    const envAsMap = buildEnvMap(containers[0].env);
+    console.log(`${name} ${envAsMap['SINK_BIGQUERY_TABLE_NAME']}`)
     return {
         title: name.replace("gopay-gl-aws-prod-globalstream", "temp-gopay-gl-aws-prod-globalstream"),
         team: 'gopay-de-app',
@@ -103,4 +89,4 @@ const buildShieldPayload = ({title}) => ({
     userId: USER_ID
 })
 
-executeV2();
+// execute();
