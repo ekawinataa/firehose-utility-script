@@ -27,16 +27,20 @@ const execute = () => {
             const existingFirehoseJson = JSON.parse(fileContent);
             const firehosePayload = buildTemporaryFirehosePayload(existingFirehoseJson);
             await axios.post(`${ODIN_URL}/firehoses`, firehosePayload)
-                .then(async ({data}) => {
-                    console.log(`Success creating firehose: ${data.name}`)
-                    const shieldPayload = buildShieldPayload(firehosePayload.name);
-                    await axios.post(SHIELD_URL, shieldPayload, {headers: SHIELD_HEADER})
-                        .catch(error => console.log(`Error creating shield: ${error}`))
+                .then(async ({data: {firehose: {name}}}) => {
+                    console.log(`Success creating firehose: ${name}`)
+                    await createShieldResource(firehosePayload);
                 })
                 .catch(error => console.log(`Error creating firehose: ${error}`));
             console.log(`Successfully migrated ${existingFirehoseJson.title}`);
         });
     });
+}
+
+const createShieldResource = async (firehosePayload) => {
+    const shieldPayload = buildShieldPayload(firehosePayload.name);
+    await axios.post(SHIELD_URL, shieldPayload, {headers: SHIELD_HEADER})
+        .catch(error => console.log(`Error creating shield: ${error}`))
 }
 
 const buildEnvMap = (env) => {
