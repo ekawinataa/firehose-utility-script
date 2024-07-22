@@ -1,20 +1,19 @@
-///IMPORTS
 const fs = require('fs');
 const path = require('path');
-const resourceFolderPath = path.join('./resource');
 const axios = require('axios');
+const {
+    ODIN_URL,
+    SHIELD_URL,
+    SHIELD_HEADER,
+    GROUP_ID,
+    PROJECT_ID,
+    ORG_ID,
+    NAMESPACE_ID,
+    USER_ID
+} = require("./constant");
 
-///CONSTANTS
-const ODIN_URL = "http://odin.gtfdata.io";
-const FIREHOSE_URL = `${ODIN_URL}/firehoses`;
-const SHIELD_URL = "http://shield.gtfdata.io/admin/v1beta1/resources";
-
-///IDS (will provide this)
-const ORG_ID = '';
-const USER_ID = '';
-const PROJECT_ID = '';
-const GROUP_ID = '';
-const NAMESPACE_ID = '';
+const STREAM_NAME = 'p-go-gp-aws-central-kraft-globalstream';
+const resourceFolderPath = path.join(`./production-resource`);
 
 const execute = () => {
     fs.readdir(resourceFolderPath, (err, files) => {
@@ -27,12 +26,21 @@ const execute = () => {
             const fileContent = fs.readFileSync(filePath, 'utf8');
             const existingFirehoseJson = JSON.parse(fileContent);
             const firehosePayload = buildTemporaryFirehosePayload(existingFirehoseJson);
-            const shieldPayload = buildShieldPayload(firehosePayload);
-            await axios.post(FIREHOSE_URL, firehosePayload)
-                .then(async response => await axios.post(SHIELD_URL, shieldPayload));
+            await axios.post(`${ODIN_URL}/firehoses`, firehosePayload)
+                .then(async ({data: {firehose: {name}}}) => {
+                    console.log(`Success creating firehose: ${name}`)
+                    await createShieldResource(firehosePayload);
+                })
+                .catch(error => console.log(`Error creating firehose: ${error}`));
             console.log(`Successfully migrated ${existingFirehoseJson.title}`);
         });
     });
+}
+
+const createShieldResource = async (firehosePayload) => {
+    const shieldPayload = buildShieldPayload(firehosePayload.name);
+    await axios.post(SHIELD_URL, shieldPayload, {headers: SHIELD_HEADER})
+        .catch(error => console.log(`Error creating shield: ${error}`))
 }
 
 const buildEnvMap = (env) => {
@@ -44,11 +52,10 @@ const buildEnvMap = (env) => {
 const buildTemporaryFirehosePayload = (firehose) => {
     const {metadata: {name}, spec: {template: {spec: {containers}}}} = firehose;
     const envAsMap = buildEnvMap(containers[0].env);
-    console.log(`${name} ${envAsMap['SINK_BIGQUERY_TABLE_NAME']}`)
-    return {
-        title: name.replace("gopay-gl-aws-prod-globalstream", "temp-gopay-gl-aws-prod-globalstream"),
+    const firehosePayload = {
+        title: name.replace(`gopay-gl-aws-prod-globalstream`, `temp-gopay-gl-aws-prod-globalstream`),
         team: 'gopay-de-app',
-        stream_name: 'p-go-gp-aws-central-kraft-globalstream',
+        stream_name: STREAM_NAME,
         topic_name: envAsMap['SOURCE_KAFKA_TOPIC'],
         configuration: {
             SINK_TYPE: "bigquery",
@@ -76,17 +83,23 @@ const buildTemporaryFirehosePayload = (firehose) => {
         autoscale_hpa_scaleup_percent: 300,
         autoscale_hpa_scaledown_percent: 10,
         autoscale_hpa_scaledown_stabilization_window_secs: 300,
-        created_by: "mayank.rai@gojek.com"
+        created_by: USERNAME
     }
+    console.log(firehosePayload);
+    return firehosePayload;
 }
 
-const buildShieldPayload = ({title}) => ({
-    name: title,
-    groupId: GROUP_ID,
-    projectId: PROJECT_ID,
-    organizationId: ORG_ID,
-    namespaceId: NAMESPACE_ID,
-    userId: USER_ID
-})
+const buildShieldPayload = (name) => {
+    const payload = {
+        name,
+        groupId: GROUP_ID,
+        projectId: PROJECT_ID,
+        organizationId: ORG_ID,
+        namespaceId: NAMESPACE_ID,
+        userId: USER_ID
+    }
+    console.log(payload);
+    return payload;
+}
 
-// execute();
+execute();
