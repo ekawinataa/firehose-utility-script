@@ -6,3 +6,7 @@
 
 Plan :
 https://go-jek.atlassian.net/wiki/spaces/GPDE/pages/3145138340/Goku+EKS+BQ+Firehose+Migration
+
+
+Notes : 
+

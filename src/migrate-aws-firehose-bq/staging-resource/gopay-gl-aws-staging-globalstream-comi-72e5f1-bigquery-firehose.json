@@ -1,0 +1,1154 @@
+{
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+        "annotations": {
+            "deployment.kubernetes.io/revision": "2",
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"firehose\",\"app-id\":\"35d63575-a28f-44b3-9ff9-40c51ed8f8a6\",\"application\":\"firehose\",\"component\":\"worker\",\"deployment\":\"gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose\",\"environment\":\"integration\",\"landscape\":\"gl\",\"lifecycle\":\"consumer\",\"name\":\"gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose\",\"orchestrator\":\"manual\",\"org\":\"gopaydata\",\"owner\":\"de\",\"product-group-id\":\"2079834a-05c4-420d-bfc8-44b934adea9f\",\"projectID\":\"gopay-gl-aws-staging\",\"team-id\":\"57036702-5687-4ba3-860e-94342900df21\",\"tenant\":\"gopay-de-app\"},\"name\":\"gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose\",\"namespace\":\"firehose\"},\"spec\":{\"progressDeadlineSeconds\":600,\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"firehose\",\"name\":\"gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":\"25%\",\"maxUnavailable\":\"25%\"},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"creationTimestamp\":null,\"labels\":{\"app\":\"firehose\",\"app-id\":\"35d63575-a28f-44b3-9ff9-40c51ed8f8a6\",\"application\":\"firehose\",\"component\":\"worker\",\"deployment\":\"gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose\",\"environment\":\"integration\",\"landscape\":\"gl\",\"lifecycle\":\"consume\",\"name\":\"gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose\",\"orchestrator\":\"manual\",\"org\":\"gopaydata\",\"owner\":\"de\",\"projectID\":\"gopay-gl-aws-staging\",\"team-id\":\"57036702-5687-4ba3-860e-94342900df21\",\"tenant\":\"gopay-de-app\"}},\"spec\":{\"containers\":[{\"args\":[\"java\",\"-cp\",\"bin/*:/work-dir/*\",\"com.gotocompany.firehose.launch.Main\",\"-server\",\"-Dlogback.configurationFile=etc/firehose/logback.xml\",\"-Xloggc:/var/log/firehose\"],\"env\":[{\"name\":\"LOG_LEVEL\",\"value\":\"INFO\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_AUTO_COMMIT_ENABLE\",\"value\":\"false\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_METADATA_MAX_AGE_MS\",\"value\":\"500\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_SESSION_TIMEOUT_MS\",\"value\":\"10000\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_PARTITION_ASSIGNMENT_STRATEGY\",\"value\":\"org.apache.kafka.clients.consumer.CooperativeStickyAssignor,org.apache.kafka.clients.consumer.RangeAssignor\"},{\"name\":\"SOURCE_KAFKA_COMMIT_ONLY_CURRENT_PARTITIONS_ENABLE\",\"value\":\"true\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_FETCH_MIN_BYTES\",\"value\":\"1\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_GROUP_ID\",\"value\":\"gopay-gl-aws-staging-globalstream-cominsurancetransaction-bigquery-firehose-0002\"},{\"name\":\"SOURCE_KAFKA_POLL_TIMEOUT_MS\",\"value\":\"9223372036854775807\"},{\"name\":\"SINK_INFLUX_DB_NAME\"},{\"name\":\"SINK_JDBC_CONNECTION_POOL_TIMEOUT_MS\",\"value\":\"2000\"},{\"name\":\"SINK_JDBC_CONNECTION_POOL_IDLE_TIMEOUT_MS\",\"value\":\"30000\"},{\"name\":\"SINK_JDBC_CONNECTION_POOL_MIN_IDLE\",\"value\":\"0\"},{\"name\":\"SINK_JDBC_PASSWORD\"},{\"name\":\"SINK_JDBC_URL\"},{\"name\":\"SINK_JDBC_USERNAME\"},{\"name\":\"SOURCE_KAFKA_ASYNC_COMMIT_ENABLE\",\"value\":\"true\"},{\"name\":\"SINK_ES_CONNECTION_URLS\"},{\"name\":\"SINK_ES_ID_FIELD\"},{\"name\":\"SINK_ES_INDEX_NAME\"},{\"name\":\"SINK_ES_INPUT_MESSAGE_TYPE\",\"value\":\"json\"},{\"name\":\"SINK_ES_PRESERVE_PROTO_FIELD_NAMES_ENABLE\",\"value\":\"true\"},{\"name\":\"SINK_ES_REQUEST_TIMEOUT_MS\",\"value\":\"60000\"},{\"name\":\"SINK_ES_RETRY_STATUS_CODE_BLACKLIST\",\"value\":\"404\"},{\"name\":\"SINK_ES_ROUTING_KEY_NAME\"},{\"name\":\"SINK_ES_TYPE_NAME\"},{\"name\":\"SINK_ES_MODE_UPDATE_ONLY_ENABLE\",\"value\":\"false\"},{\"name\":\"SINK_ES_SHARDS_ACTIVE_WAIT_COUNT\",\"value\":\"1\"},{\"name\":\"SINK_INFLUX_FIELD_NAME_PROTO_INDEX_MAPPING\"},{\"name\":\"FILTER_ENGINE\",\"value\":\"no_op\"},{\"name\":\"FILTER_DATA_SOURCE\"},{\"name\":\"FILTER_SCHEMA_PROTO_CLASS\"},{\"name\":\"FILTER_JEXL_EXPRESSION\"},{\"name\":\"FILTER_JSON_SCHEMA\"},{\"name\":\"FILTER_ESB_MESSAGE_FORMAT\"},{\"name\":\"SINK_GRPC_METHOD_URL\",\"value\":\"com.gopay.transformer.TransformerService/OneKycGpsEventToFRSReadWriteRequest\"},{\"name\":\"SINK_GRPC_METADATA\"},{\"name\":\"SINK_GRPC_RESPONSE_SCHEMA_PROTO_CLASS\",\"value\":\"com.gopay.transformer.TransformationResponse\"},{\"name\":\"SINK_GRPC_SERVICE_HOST\",\"value\":\"transformer.i.s-go-gp-eks-01.gopay.sh\"},{\"name\":\"SINK_GRPC_SERVICE_PORT\",\"value\":\"80\"},{\"name\":\"SINK_HTTP_MAX_CONNECTIONS\",\"value\":\"10\"},{\"name\":\"SINK_HTTP_REQUEST_TIMEOUT_MS\",\"value\":\"10000\"},{\"name\":\"SINK_HTTP_RETRY_STATUS_CODE_RANGES\",\"value\":\"400-600\"},{\"name\":\"SINK_HTTP_HEADERS\",\"value\":\"Authorization:auth_token,Accept:text/plain\"},{\"name\":\"SINK_HTTP_DATA_FORMAT\",\"value\":\"proto\"},{\"name\":\"SINK_HTTP_OAUTH2_ACCESS_TOKEN_URL\",\"value\":\"https://localhost:8888\"},{\"name\":\"SINK_HTTP_OAUTH2_CLIENT_NAME\",\"value\":\"client_name\"},{\"name\":\"SINK_HTTP_OAUTH2_CLIENT_SECRET\",\"value\":\"client_secret\"},{\"name\":\"SINK_HTTP_OAUTH2_ENABLE\",\"value\":\"false\"},{\"name\":\"SINK_HTTP_OAUTH2_SCOPE\",\"value\":\"scope\"},{\"name\":\"SINK_HTTP_PARAMETER_PLACEMENT\",\"value\":\"header\"},{\"name\":\"SINK_HTTP_PARAMETER_SCHEMA_PROTO_CLASS\"},{\"name\":\"SINK_HTTP_PARAMETER_SOURCE\",\"value\":\"disabled\"},{\"name\":\"SINK_HTTP_REQUEST_METHOD\",\"value\":\"put\"},{\"name\":\"SINK_HTTP_REQUEST_LOG_STATUS_CODE_RANGES\",\"value\":\"400-600\"},{\"name\":\"SINK_INFLUX_PASSWORD\"},{\"name\":\"SINK_INFLUX_URL\"},{\"name\":\"SINK_INFLUX_USERNAME\"},{\"name\":\"SINK_INFLUX_RETENTION_POLICY\",\"value\":\"autogen\"},{\"name\":\"RETRY_EXPONENTIAL_BACKOFF_INITIAL_MS\",\"value\":\"10\"},{\"name\":\"RETRY_EXPONENTIAL_BACKOFF_RATE\",\"value\":\"2\"},{\"name\":\"RETRY_EXPONENTIAL_BACKOFF_MAX_MS\",\"value\":\"60000\"},{\"name\":\"SOURCE_KAFKA_BROKERS\",\"value\":\"10.14.1.82:9098,10.14.1.191:9098,10.14.2.72:9098,10.14.2.66:9098,10.14.4.205:9098,10.14.4.204:9098\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_AUTO_OFFSET_RESET\",\"value\":\"earliest\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_MAX_POLL_RECORDS\",\"value\":\"500\"},{\"name\":\"SOURCE_KAFKA_TOPIC\",\"value\":\"com.insurance.transaction\"},{\"name\":\"SINK_JDBC_CONNECTION_POOL_MAX_SIZE\",\"value\":\"10\"},{\"name\":\"SINK_INFLUX_MEASUREMENT_NAME\"},{\"name\":\"APPLICATION_THREAD_COUNT\",\"value\":\"1\"},{\"name\":\"SINK_INFLUX_PROTO_EVENT_TIMESTAMP_INDEX\"},{\"name\":\"INPUT_SCHEMA_PROTO_CLASS\",\"value\":\"com.gofin.insurance.protos.TransactionMessage\"},{\"name\":\"INPUT_SCHEMA_PROTO_TO_COLUMN_MAPPING\"},{\"name\":\"SINK_REDIS_DEPLOYMENT_TYPE\",\"value\":\"standalone\"},{\"name\":\"SINK_REDIS_URLS\"},{\"name\":\"SINK_REDIS_KEY_TEMPLATE\"},{\"name\":\"SINK_REDIS_LIST_DATA_PROTO_INDEX\"},{\"name\":\"SINK_REDIS_KEY_VALUE_DATA_PROTO_INDEX\"},{\"name\":\"SINK_REDIS_DATA_TYPE\"},{\"name\":\"SINK_REDIS_TTL_TYPE\",\"value\":\"DISABLE\"},{\"name\":\"SINK_REDIS_TTL_VALUE\",\"value\":\"0\"},{\"name\":\"SINK_HTTP_SERVICE_URL\"},{\"name\":\"SINK_TYPE\",\"value\":\"bigquery\"},{\"name\":\"METRIC_STATSD_HOST\",\"value\":\"localhost\"},{\"name\":\"METRIC_STATSD_PORT\",\"value\":\"8125\"},{\"name\":\"METRIC_STATSD_TAGS\",\"value\":\"namespace=firehose,app=gopay-gl-aws-staging-globalstream-cominsurancetransaction-bigquery-firehose,sink=bigquery,datatype=protobuf,stream=gopay-gl-aws-staging-globalstream,team=gopay-de-app,proto=com.gofin.insurance.protos.TransactionMessage\"},{\"name\":\"SCHEMA_REGISTRY_STENCIL_ENABLE\",\"value\":\"true\"},{\"name\":\"SCHEMA_REGISTRY_STENCIL_URLS\",\"value\":\"https://i-gtfndata-systems-stencil.gtfdata.io/v1beta1/namespaces/gofin/schemas/insurance-protos\"},{\"name\":\"SCHEMA_REGISTRY_STENCIL_CACHE_AUTO_REFRESH\",\"value\":\"true\"},{\"name\":\"SCHEMA_REGISTRY_STENCIL_CACHE_TTL_MS\",\"value\":\"900000\"},{\"name\":\"SCHEMA_REGISTRY_STENCIL_FETCH_HEADERS\"},{\"name\":\"SCHEMA_REGISTRY_STENCIL_FETCH_BACKOFF_MIN_MS\",\"value\":\"60000\"},{\"name\":\"SCHEMA_REGISTRY_STENCIL_FETCH_RETRIES\",\"value\":\"4\"},{\"name\":\"SCHEMA_REGISTRY_STENCIL_FETCH_TIMEOUT_MS\",\"value\":\"10000\"},{\"name\":\"SCHEMA_REGISTRY_STENCIL_REFRESH_STRATEGY\",\"value\":\"VERSION_BASED_REFRESH\"},{\"name\":\"SINK_JDBC_TABLE_NAME\"},{\"name\":\"SINK_INFLUX_TAG_NAME_PROTO_INDEX_MAPPING\"},{\"name\":\"SINK_JDBC_UNIQUE_KEYS\"},{\"name\":\"_JAVA_OPTIONS\",\"value\":\"-Xmx1024m -Xms1024m\"},{\"name\":\"SINK_HTTP_JSON_BODY_TEMPLATE\"},{\"name\":\"JAVA_TOOL_OPTIONS\",\"value\":\"-javaagent:jolokia-jvm-agent.jar=port=8778,host=localhost\"},{\"name\":\"SINK_PROM_SERVICE_URL\"},{\"name\":\"SINK_PROM_REQUEST_TIMEOUT_MS\",\"value\":\"10000\"},{\"name\":\"SINK_PROM_RETRY_STATUS_CODE_RANGES\",\"value\":\"400-600\"},{\"name\":\"SINK_PROM_REQUEST_LOG_STATUS_CODE_RANGES\",\"value\":\"400-600\"},{\"name\":\"SINK_PROM_HEADERS\"},{\"name\":\"SINK_PROM_METRIC_NAME_PROTO_INDEX_MAPPING\"},{\"name\":\"SINK_PROM_LABEL_NAME_PROTO_INDEX_MAPPING\"},{\"name\":\"SINK_PROM_WITH_EVENT_TIMESTAMP\",\"value\":\"false\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_MODE\",\"value\":\"async\"},{\"name\":\"RETRY_FAIL_AFTER_MAX_ATTEMPTS_ENABLE\",\"value\":\"false\"},{\"name\":\"RETRY_MAX_ATTEMPTS\",\"value\":\"2147483647\"},{\"name\":\"INPUT_SCHEMA_PROTO_ALLOW_UNKNOWN_FIELDS_ENABLE\",\"value\":\"true\"},{\"name\":\"SINK_PROM_PROTO_EVENT_TIMESTAMP_INDEX\"},{\"name\":\"SINK_BIGQUERY_GOOGLE_CLOUD_PROJECT_ID\",\"value\":\"g-gopay-gl-data-raw\"},{\"name\":\"SINK_BIGQUERY_TABLE_NAME\",\"value\":\"com_insurance_transaction\"},{\"name\":\"SINK_BIGQUERY_DATASET_LABELS\",\"value\":\"application=ocean,component=bqdataset,lifecycle=store,orchestrator=firehose,owner=de,organization=gopaydata,landscape=gl,environment=integration,tenant=data_warehouse,deployment=globalstream\"},{\"name\":\"SINK_BIGQUERY_TABLE_LABELS\",\"value\":\"application=ocean,component=bqtable,lifecycle=store,orchestrator=firehose,owner=de,organization=gopaydata,landscape=gl,environment=integration,tenant=data_warehouse,deployment=globalstream\"},{\"name\":\"SINK_BIGQUERY_DATASET_NAME\",\"value\":\"globalstream\"},{\"name\":\"SINK_BIGQUERY_CREDENTIAL_PATH\",\"value\":\"/etc/secret/bigquery-sink/auth.json\"},{\"name\":\"SINK_BIGQUERY_TABLE_PARTITIONING_ENABLE\",\"value\":\"false\"},{\"name\":\"SINK_BIGQUERY_TABLE_PARTITION_KEY\",\"value\":\"event_timestamp\"},{\"name\":\"SINK_BIGQUERY_ROW_INSERT_ID_ENABLE\",\"value\":\"true\"},{\"name\":\"SINK_BIGQUERY_CLIENT_READ_TIMEOUT_MS\",\"value\":\"-1\"},{\"name\":\"SINK_BIGQUERY_CLIENT_CONNECT_TIMEOUT_MS\",\"value\":\"-1\"},{\"name\":\"SINK_BIGQUERY_TABLE_PARTITION_EXPIRY_MS\",\"value\":\"-86400000\"},{\"name\":\"SINK_BIGQUERY_DATASET_LOCATION\",\"value\":\"US\"},{\"name\":\"SINK_BIGQUERY_METADATA_NAMESPACE\",\"value\":\"__kafka_metadata\"},{\"name\":\"ERROR_TYPES_FOR_FAILING\",\"value\":\"DESERIALIZATION_ERROR,INVALID_MESSAGE_ERROR,UNKNOWN_FIELDS_ERROR\"},{\"name\":\"ERROR_TYPES_FOR_DLQ\",\"value\":\"DESERIALIZATION_ERROR,INVALID_MESSAGE_ERROR,UNKNOWN_FIELDS_ERROR,SINK_4XX_ERROR,SINK_5XX_ERROR,SINK_UNKNOWN_ERROR,DEFAULT_ERROR\"},{\"name\":\"ERROR_TYPES_FOR_RETRY\",\"value\":\"DEFAULT_ERROR\"},{\"name\":\"SINK_POOL_NUM_THREADS\",\"value\":\"8\"},{\"name\":\"SINK_POOL_QUEUE_POLL_TIMEOUT_MS\",\"value\":\"1000\"},{\"name\":\"SINK_BLOB_STORAGE_TYPE\",\"value\":\"GCS\"},{\"name\":\"SINK_BLOB_LOCAL_DIRECTORY\",\"value\":\"/tmp/firehose\"},{\"name\":\"SINK_BLOB_LOCAL_FILE_WRITER_TYPE\",\"value\":\"PARQUET\"},{\"name\":\"SINK_BLOB_LOCAL_FILE_WRITER_PARQUET_BLOCK_SIZE\",\"value\":\"134217728\"},{\"name\":\"SINK_BLOB_LOCAL_FILE_WRITER_PARQUET_PAGE_SIZE\",\"value\":\"1048576\"},{\"name\":\"SINK_BLOB_LOCAL_FILE_ROTATION_DURATION_MS\",\"value\":\"3600000\"},{\"name\":\"SINK_BLOB_LOCAL_FILE_ROTATION_MAX_SIZE_BYTES\",\"value\":\"268435456\"},{\"name\":\"SINK_BLOB_FILE_PARTITION_PROTO_TIMESTAMP_FIELD_NAME\"},{\"name\":\"SINK_BLOB_FILE_PARTITION_PROTO_TIMESTAMP_TIMEZONE\",\"value\":\"UTC\"},{\"name\":\"SINK_BLOB_FILE_PARTITION_TIME_DATE_PREFIX\",\"value\":\"dt=\"},{\"name\":\"SINK_BLOB_FILE_PARTITION_TIME_GRANULARITY_TYPE\",\"value\":\"hour\"},{\"name\":\"SINK_BLOB_FILE_PARTITION_TIME_HOUR_PREFIX\",\"value\":\"hr=\"},{\"name\":\"SINK_BLOB_OUTPUT_KAFKA_METADATA_COLUMN_NAME\",\"value\":\"__kafka_metadata\"},{\"name\":\"SINK_BLOB_OUTPUT_INCLUDE_KAFKA_METADATA_ENABLE\",\"value\":\"true\"},{\"name\":\"SINK_BLOB_GCS_GOOGLE_CLOUD_PROJECT_ID\"},{\"name\":\"SINK_BLOB_GCS_BUCKET_NAME\"},{\"name\":\"SINK_BLOB_GCS_CREDENTIAL_PATH\"},{\"name\":\"SINK_BLOB_GCS_RETRY_MAX_ATTEMPTS\",\"value\":\"10\"},{\"name\":\"SINK_BLOB_GCS_RETRY_TOTAL_TIMEOUT_MS\",\"value\":\"120000\"},{\"name\":\"SINK_BLOB_GCS_RETRY_INITIAL_DELAY_MS\",\"value\":\"1000\"},{\"name\":\"SINK_BLOB_GCS_RETRY_MAX_DELAY_MS\",\"value\":\"30000\"},{\"name\":\"SINK_BLOB_GCS_RETRY_DELAY_MULTIPLIER\",\"value\":\"2\"},{\"name\":\"SINK_BLOB_GCS_RETRY_INITIAL_RPC_TIMEOUT_MS\",\"value\":\"5000\"},{\"name\":\"SINK_BLOB_GCS_RETRY_RPC_TIMEOUT_MULTIPLIER\",\"value\":\"1\"},{\"name\":\"SINK_BLOB_GCS_RETRY_RPC_MAX_TIMEOUT_MS\",\"value\":\"5000\"},{\"name\":\"DLQ_SINK_ENABLE\",\"value\":\"true\"},{\"name\":\"DLQ_WRITER_TYPE\",\"value\":\"BLOB_STORAGE\"},{\"name\":\"DLQ_BLOB_STORAGE_TYPE\",\"value\":\"GCS\"},{\"name\":\"DLQ_RETRY_MAX_ATTEMPTS\",\"value\":\"2147483647\"},{\"name\":\"DLQ_RETRY_FAIL_AFTER_MAX_ATTEMPT_ENABLE\",\"value\":\"true\"},{\"name\":\"DLQ_GCS_GOOGLE_CLOUD_PROJECT_ID\",\"value\":\"g-gopay-gl-data-raw\"},{\"name\":\"DLQ_GCS_BUCKET_NAME\",\"value\":\"g-gopaydata-gl-dlq\"},{\"name\":\"DLQ_GCS_CREDENTIAL_PATH\",\"value\":\"/etc/secret/dlq-gcs/auth.json\"},{\"name\":\"DLQ_GCS_RETRY_MAX_ATTEMPTS\",\"value\":\"10\"},{\"name\":\"DLQ_GCS_RETRY_TOTAL_TIMEOUT_MS\",\"value\":\"120000\"},{\"name\":\"DLQ_GCS_RETRY_INITIAL_DELAY_MS\",\"value\":\"1000\"},{\"name\":\"DLQ_GCS_RETRY_MAX_DELAY_MS\",\"value\":\"30000\"},{\"name\":\"DLQ_GCS_RETRY_DELAY_MULTIPLIER\",\"value\":\"2\"},{\"name\":\"DLQ_GCS_RETRY_INITIAL_RPC_TIMEOUT_MS\",\"value\":\"5000\"},{\"name\":\"DLQ_GCS_RETRY_RPC_TIMEOUT_MULTIPLIER\",\"value\":\"1\"},{\"name\":\"DLQ_GCS_RETRY_RPC_MAX_TIMEOUT_MS\",\"value\":\"5000\"},{\"name\":\"DLQ_KAFKA_ACKS\",\"value\":\"all\"},{\"name\":\"DLQ_KAFKA_RETRIES\",\"value\":\"2147483647\"},{\"name\":\"DLQ_KAFKA_BATCH_SIZE\",\"value\":\"16384\"},{\"name\":\"DLQ_KAFKA_LINGER_MS\",\"value\":\"0\"},{\"name\":\"DLQ_KAFKA_BUFFER_MEMORY\",\"value\":\"33554432\"},{\"name\":\"DLQ_KAFKA_KEY_SERIALIZER\",\"value\":\"org.apache.kafka.common.serialization.ByteArraySerializer\"},{\"name\":\"DLQ_KAFKA_VALUE_SERIALIZER\",\"value\":\"org.apache.kafka.common.serialization.ByteArraySerializer\"},{\"name\":\"DLQ_KAFKA_BROKERS\"},{\"name\":\"DLQ_KAFKA_TOPIC\",\"value\":\"firehose-retry-topic\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_MANUAL_COMMIT_MIN_INTERVAL_MS\",\"value\":\"-1\"},{\"name\":\"INPUT_SCHEMA_DATA_TYPE\",\"value\":\"protobuf\"},{\"name\":\"SINK_BIGQUERY_DYNAMIC_SCHEMA_ENABLE\",\"value\":\"true\"},{\"name\":\"SINK_BIGQUERY_DEFAULT_DATATYPE_STRING_ENABLE\",\"value\":\"false\"},{\"name\":\"SINK_BIGQUERY_ADD_EVENT_TIMESTAMP_ENABLE\",\"value\":\"false\"},{\"name\":\"SINK_BIGQUERY_DEFAULT_COLUMNS\"},{\"name\":\"SINK_BIGQUERY_TABLE_CLUSTERING_ENABLE\",\"value\":\"false\"},{\"name\":\"SINK_BIGQUERY_TABLE_CLUSTERING_KEYS\"},{\"name\":\"SINK_BIGTABLE_GOOGLE_CLOUD_PROJECT_ID\"},{\"name\":\"SINK_BIGTABLE_INSTANCE_ID\"},{\"name\":\"SINK_BIGTABLE_CREDENTIAL_PATH\",\"value\":\"/etc/secret/blob-gcs-sink/auth.json\"},{\"name\":\"SINK_BIGTABLE_TABLE_ID\"},{\"name\":\"SINK_BIGTABLE_ROW_KEY_TEMPLATE\"},{\"name\":\"SINK_BIGTABLE_COLUMN_FAMILY_MAPPING\"},{\"name\":\"SINK_REDIS_HASHSET_FIELD_TO_COLUMN_MAPPING\",\"value\":\"{}\"},{\"name\":\"SINK_REDIS_LIST_DATA_FIELD_NAME\"},{\"name\":\"SINK_REDIS_KEY_VALUE_DATA_FIELD_NAME\"},{\"name\":\"AUTOSCALE_POLLING_INTERVAL\",\"value\":\"30\"},{\"name\":\"AUTOSCALE_OFFSET_RESET_POLICY\",\"value\":\"latest\"},{\"name\":\"AUTOSCALE_HPA_SCALEDOWN_PERCENT\",\"value\":\"10\"},{\"name\":\"AUTOSCALE_HPA_SCALEDOWN_STABILIZATION_WINDOW_SECS\",\"value\":\"300\"},{\"name\":\"AUTOSCALE_HPA_SCALEUP_PERIOD_SECS\",\"value\":\"5\"},{\"name\":\"AUTOSCALE_HPA_SCALEUP_PERCENT\",\"value\":\"300\"},{\"name\":\"SINK_GRPC_ARG_KEEPALIVE_TIME_MS\",\"value\":\"9223372036854775807\"},{\"name\":\"SINK_GRPC_ARG_KEEPALIVE_TIMEOUT_MS\",\"value\":\"20001\"},{\"name\":\"SINK_GRPC_ARG_DEADLINE_MS\",\"value\":\"-1\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_SECURITY_PROTOCOL\",\"value\":\"SASL_SSL\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_SSL_PROTOCOL\",\"value\":\"SSL\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_SASL_MECHANISM\",\"value\":\"OAUTHBEARER\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_SASL_LOGIN_CALLBACK_HANDLER_CLASS\",\"value\":\"io.gtflabs.kafka.security.oauthbearer.kubernetes.PodLoginCallbackHandler\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_SSL_TRUSTSTORE_LOCATION\",\"value\":\"/etc/kafka/certs/truststore.p12\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_SSL_TRUSTSTORE_PASSWORD\",\"value\":\"M46hguM42kfzGQ2kU\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_SASL_JAAS_CONFIG\",\"value\":\"org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required;\"},{\"name\":\"SOURCE_KAFKA_CONSUMER_CONFIG_SSL_TRUSTSTORE_TYPE\",\"value\":\"PKCS12\"},{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"metadata.name\"}}},{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"spec.nodeName\"}}}],\"image\":\"gotocompany/firehose:0.9.10\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose\",\"resources\":{\"limits\":{\"cpu\":\"6\",\"memory\":\"2500Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"1Gi\"}},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\",\"volumeMounts\":[{\"mountPath\":\"/work-dir\",\"name\":\"workdir\"},{\"mountPath\":\"/etc/secret/blob-gcs-sink\",\"name\":\"firehose-blob-gcs-sink-credential\"},{\"mountPath\":\"/etc/secret/bigquery-sink\",\"name\":\"firehose-bigquery-sink-credential\"},{\"mountPath\":\"/etc/secret/dlq-gcs\",\"name\":\"firehose-dlq-gcs-credential\"},{\"mountPath\":\"/etc/kafka/certs\",\"name\":\"s-go-gp-aws-central-kraft-globalstream-ssl\",\"readOnly\":true},{\"mountPath\":\"/var/run/secrets/kafka/serviceaccount\",\"name\":\"kafka-token\"}]},{\"env\":[{\"name\":\"TEAM\",\"value\":\"gopay-de-app\"},{\"name\":\"APP_NAME\",\"value\":\"gopay-gl-aws-staging-globalstream-cominsurancetransaction-bigquery-firehose\"},{\"name\":\"DEPLOYMENT_NAME\",\"value\":\"gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose\"},{\"name\":\"CONSUMER_GROUP\",\"value\":\"gopay-gl-aws-staging-globalstream-cominsurancetransaction-bigquery-firehose-0002\"},{\"name\":\"FULL_ENVIRONMENT_NAME\",\"value\":\"integration\"},{\"name\":\"organization\",\"value\":\"gopaydata\"},{\"name\":\"landscape\",\"value\":\"gl\"},{\"name\":\"environment\",\"value\":\"g\"},{\"name\":\"projectID\",\"value\":\"gopay-gl-aws-staging\"}],\"image\":\"telegraf:1.30.1-alpine\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"telegrafd\",\"resources\":{},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\",\"volumeMounts\":[{\"mountPath\":\"/etc/telegraf\",\"name\":\"telegraf-conf\"}]}],\"dnsPolicy\":\"ClusterFirst\",\"initContainers\":[{\"args\":[\"wget -O /work-dir/kafka-security-0.5.0-all.jar http://artifactory-gopay.golabs.io/artifactory/gopay-release-local/io/gtflabs/infrastructure-engineering/kafka-security/0.5.0/kafka-security-0.5.0-all.jar;\"],\"command\":[\"/bin/sh\",\"-c\"],\"image\":\"busybox\",\"imagePullPolicy\":\"Always\",\"name\":\"install\",\"resources\":{},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\",\"volumeMounts\":[{\"mountPath\":\"/work-dir\",\"name\":\"workdir\"}]}],\"restartPolicy\":\"Always\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{},\"serviceAccount\":\"gopay-de-app\",\"serviceAccountName\":\"gopay-de-app\",\"terminationGracePeriodSeconds\":30,\"tolerations\":[{\"effect\":\"NoSchedule\",\"key\":\"firehose\",\"operator\":\"Equal\",\"value\":\"enabled\"}],\"volumes\":[{\"configMap\":{\"defaultMode\":420,\"name\":\"firehose-telegraf-conf\"},\"name\":\"telegraf-conf\"},{\"emptyDir\":{},\"name\":\"workdir\"},{\"name\":\"firehose-blob-gcs-sink-credential\",\"secret\":{\"defaultMode\":420,\"items\":[{\"key\":\"token\",\"path\":\"auth.json\"}],\"secretName\":\"firehose-blob-gcs-sink-credential\"}},{\"name\":\"firehose-bigquery-sink-credential\",\"secret\":{\"defaultMode\":420,\"items\":[{\"key\":\"token\",\"path\":\"auth.json\"}],\"secretName\":\"firehose-bigquery-sink-credential\"}},{\"name\":\"firehose-dlq-gcs-credential\",\"secret\":{\"defaultMode\":420,\"items\":[{\"key\":\"token\",\"path\":\"auth.json\"}],\"secretName\":\"firehose-dlq-gcs-credential\"}},{\"name\":\"s-go-gp-aws-central-kraft-globalstream-ssl\",\"secret\":{\"defaultMode\":420,\"secretName\":\"s-go-gp-aws-central-kraft-globalstream-ssl\"}},{\"name\":\"kafka-token\",\"projected\":{\"defaultMode\":420,\"sources\":[{\"serviceAccountToken\":{\"audience\":\"kafka\",\"expirationSeconds\":600,\"path\":\"token\"}}]}}]}}}}\n"
+        },
+        "creationTimestamp": "2024-05-22T11:03:04Z",
+        "generation": 2,
+        "labels": {
+            "app": "firehose",
+            "app-id": "35d63575-a28f-44b3-9ff9-40c51ed8f8a6",
+            "application": "firehose",
+            "component": "worker",
+            "deployment": "gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose",
+            "environment": "integration",
+            "landscape": "gl",
+            "lifecycle": "consumer",
+            "name": "gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose",
+            "orchestrator": "manual",
+            "org": "gopaydata",
+            "owner": "de",
+            "product-group-id": "2079834a-05c4-420d-bfc8-44b934adea9f",
+            "projectID": "gopay-gl-aws-staging",
+            "team-id": "57036702-5687-4ba3-860e-94342900df21",
+            "tenant": "gopay-de-app"
+        },
+        "name": "gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose",
+        "namespace": "firehose",
+        "resourceVersion": "2769363901",
+        "uid": "461fa749-7385-4601-b45c-4dce1489d9a9"
+    },
+    "spec": {
+        "progressDeadlineSeconds": 600,
+        "replicas": 1,
+        "revisionHistoryLimit": 10,
+        "selector": {
+            "matchLabels": {
+                "app": "firehose",
+                "name": "gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose"
+            }
+        },
+        "strategy": {
+            "rollingUpdate": {
+                "maxSurge": "25%",
+                "maxUnavailable": "25%"
+            },
+            "type": "RollingUpdate"
+        },
+        "template": {
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/restartedAt": "2024-06-07T11:03:32+07:00"
+                },
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "firehose",
+                    "app-id": "35d63575-a28f-44b3-9ff9-40c51ed8f8a6",
+                    "application": "firehose",
+                    "component": "worker",
+                    "deployment": "gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose",
+                    "environment": "integration",
+                    "landscape": "gl",
+                    "lifecycle": "consume",
+                    "name": "gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose",
+                    "orchestrator": "manual",
+                    "org": "gopaydata",
+                    "owner": "de",
+                    "projectID": "gopay-gl-aws-staging",
+                    "team-id": "57036702-5687-4ba3-860e-94342900df21",
+                    "tenant": "gopay-de-app"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "args": [
+                            "java",
+                            "-cp",
+                            "bin/*:/work-dir/*",
+                            "com.gotocompany.firehose.launch.Main",
+                            "-server",
+                            "-Dlogback.configurationFile=etc/firehose/logback.xml",
+                            "-Xloggc:/var/log/firehose"
+                        ],
+                        "env": [
+                            {
+                                "name": "LOG_LEVEL",
+                                "value": "INFO"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_AUTO_COMMIT_ENABLE",
+                                "value": "false"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_METADATA_MAX_AGE_MS",
+                                "value": "500"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_SESSION_TIMEOUT_MS",
+                                "value": "10000"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_PARTITION_ASSIGNMENT_STRATEGY",
+                                "value": "org.apache.kafka.clients.consumer.CooperativeStickyAssignor,org.apache.kafka.clients.consumer.RangeAssignor"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_COMMIT_ONLY_CURRENT_PARTITIONS_ENABLE",
+                                "value": "true"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_FETCH_MIN_BYTES",
+                                "value": "1"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_GROUP_ID",
+                                "value": "gopay-gl-aws-staging-globalstream-cominsurancetransaction-bigquery-firehose-0002"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_POLL_TIMEOUT_MS",
+                                "value": "9223372036854775807"
+                            },
+                            {
+                                "name": "SINK_INFLUX_DB_NAME"
+                            },
+                            {
+                                "name": "SINK_JDBC_CONNECTION_POOL_TIMEOUT_MS",
+                                "value": "2000"
+                            },
+                            {
+                                "name": "SINK_JDBC_CONNECTION_POOL_IDLE_TIMEOUT_MS",
+                                "value": "30000"
+                            },
+                            {
+                                "name": "SINK_JDBC_CONNECTION_POOL_MIN_IDLE",
+                                "value": "0"
+                            },
+                            {
+                                "name": "SINK_JDBC_PASSWORD"
+                            },
+                            {
+                                "name": "SINK_JDBC_URL"
+                            },
+                            {
+                                "name": "SINK_JDBC_USERNAME"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_ASYNC_COMMIT_ENABLE",
+                                "value": "true"
+                            },
+                            {
+                                "name": "SINK_ES_CONNECTION_URLS"
+                            },
+                            {
+                                "name": "SINK_ES_ID_FIELD"
+                            },
+                            {
+                                "name": "SINK_ES_INDEX_NAME"
+                            },
+                            {
+                                "name": "SINK_ES_INPUT_MESSAGE_TYPE",
+                                "value": "json"
+                            },
+                            {
+                                "name": "SINK_ES_PRESERVE_PROTO_FIELD_NAMES_ENABLE",
+                                "value": "true"
+                            },
+                            {
+                                "name": "SINK_ES_REQUEST_TIMEOUT_MS",
+                                "value": "60000"
+                            },
+                            {
+                                "name": "SINK_ES_RETRY_STATUS_CODE_BLACKLIST",
+                                "value": "404"
+                            },
+                            {
+                                "name": "SINK_ES_ROUTING_KEY_NAME"
+                            },
+                            {
+                                "name": "SINK_ES_TYPE_NAME"
+                            },
+                            {
+                                "name": "SINK_ES_MODE_UPDATE_ONLY_ENABLE",
+                                "value": "false"
+                            },
+                            {
+                                "name": "SINK_ES_SHARDS_ACTIVE_WAIT_COUNT",
+                                "value": "1"
+                            },
+                            {
+                                "name": "SINK_INFLUX_FIELD_NAME_PROTO_INDEX_MAPPING"
+                            },
+                            {
+                                "name": "FILTER_ENGINE",
+                                "value": "no_op"
+                            },
+                            {
+                                "name": "FILTER_DATA_SOURCE"
+                            },
+                            {
+                                "name": "FILTER_SCHEMA_PROTO_CLASS"
+                            },
+                            {
+                                "name": "FILTER_JEXL_EXPRESSION"
+                            },
+                            {
+                                "name": "FILTER_JSON_SCHEMA"
+                            },
+                            {
+                                "name": "FILTER_ESB_MESSAGE_FORMAT"
+                            },
+                            {
+                                "name": "SINK_GRPC_METHOD_URL",
+                                "value": "com.gopay.transformer.TransformerService/OneKycGpsEventToFRSReadWriteRequest"
+                            },
+                            {
+                                "name": "SINK_GRPC_METADATA"
+                            },
+                            {
+                                "name": "SINK_GRPC_RESPONSE_SCHEMA_PROTO_CLASS",
+                                "value": "com.gopay.transformer.TransformationResponse"
+                            },
+                            {
+                                "name": "SINK_GRPC_SERVICE_HOST",
+                                "value": "transformer.i.s-go-gp-eks-01.gopay.sh"
+                            },
+                            {
+                                "name": "SINK_GRPC_SERVICE_PORT",
+                                "value": "80"
+                            },
+                            {
+                                "name": "SINK_HTTP_MAX_CONNECTIONS",
+                                "value": "10"
+                            },
+                            {
+                                "name": "SINK_HTTP_REQUEST_TIMEOUT_MS",
+                                "value": "10000"
+                            },
+                            {
+                                "name": "SINK_HTTP_RETRY_STATUS_CODE_RANGES",
+                                "value": "400-600"
+                            },
+                            {
+                                "name": "SINK_HTTP_HEADERS",
+                                "value": "Authorization:auth_token,Accept:text/plain"
+                            },
+                            {
+                                "name": "SINK_HTTP_DATA_FORMAT",
+                                "value": "proto"
+                            },
+                            {
+                                "name": "SINK_HTTP_OAUTH2_ACCESS_TOKEN_URL",
+                                "value": "https://localhost:8888"
+                            },
+                            {
+                                "name": "SINK_HTTP_OAUTH2_CLIENT_NAME",
+                                "value": "client_name"
+                            },
+                            {
+                                "name": "SINK_HTTP_OAUTH2_CLIENT_SECRET",
+                                "value": "client_secret"
+                            },
+                            {
+                                "name": "SINK_HTTP_OAUTH2_ENABLE",
+                                "value": "false"
+                            },
+                            {
+                                "name": "SINK_HTTP_OAUTH2_SCOPE",
+                                "value": "scope"
+                            },
+                            {
+                                "name": "SINK_HTTP_PARAMETER_PLACEMENT",
+                                "value": "header"
+                            },
+                            {
+                                "name": "SINK_HTTP_PARAMETER_SCHEMA_PROTO_CLASS"
+                            },
+                            {
+                                "name": "SINK_HTTP_PARAMETER_SOURCE",
+                                "value": "disabled"
+                            },
+                            {
+                                "name": "SINK_HTTP_REQUEST_METHOD",
+                                "value": "put"
+                            },
+                            {
+                                "name": "SINK_HTTP_REQUEST_LOG_STATUS_CODE_RANGES",
+                                "value": "400-600"
+                            },
+                            {
+                                "name": "SINK_INFLUX_PASSWORD"
+                            },
+                            {
+                                "name": "SINK_INFLUX_URL"
+                            },
+                            {
+                                "name": "SINK_INFLUX_USERNAME"
+                            },
+                            {
+                                "name": "SINK_INFLUX_RETENTION_POLICY",
+                                "value": "autogen"
+                            },
+                            {
+                                "name": "RETRY_EXPONENTIAL_BACKOFF_INITIAL_MS",
+                                "value": "10"
+                            },
+                            {
+                                "name": "RETRY_EXPONENTIAL_BACKOFF_RATE",
+                                "value": "2"
+                            },
+                            {
+                                "name": "RETRY_EXPONENTIAL_BACKOFF_MAX_MS",
+                                "value": "60000"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_BROKERS",
+                                "value": "10.14.1.82:9098,10.14.1.191:9098,10.14.2.72:9098,10.14.2.66:9098,10.14.4.205:9098,10.14.4.204:9098"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_AUTO_OFFSET_RESET",
+                                "value": "earliest"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_MAX_POLL_RECORDS",
+                                "value": "500"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_TOPIC",
+                                "value": "com.insurance.transaction"
+                            },
+                            {
+                                "name": "SINK_JDBC_CONNECTION_POOL_MAX_SIZE",
+                                "value": "10"
+                            },
+                            {
+                                "name": "SINK_INFLUX_MEASUREMENT_NAME"
+                            },
+                            {
+                                "name": "APPLICATION_THREAD_COUNT",
+                                "value": "1"
+                            },
+                            {
+                                "name": "SINK_INFLUX_PROTO_EVENT_TIMESTAMP_INDEX"
+                            },
+                            {
+                                "name": "INPUT_SCHEMA_PROTO_CLASS",
+                                "value": "com.gofin.insurance.protos.TransactionMessage"
+                            },
+                            {
+                                "name": "INPUT_SCHEMA_PROTO_TO_COLUMN_MAPPING"
+                            },
+                            {
+                                "name": "SINK_REDIS_DEPLOYMENT_TYPE",
+                                "value": "standalone"
+                            },
+                            {
+                                "name": "SINK_REDIS_URLS"
+                            },
+                            {
+                                "name": "SINK_REDIS_KEY_TEMPLATE"
+                            },
+                            {
+                                "name": "SINK_REDIS_LIST_DATA_PROTO_INDEX"
+                            },
+                            {
+                                "name": "SINK_REDIS_KEY_VALUE_DATA_PROTO_INDEX"
+                            },
+                            {
+                                "name": "SINK_REDIS_DATA_TYPE"
+                            },
+                            {
+                                "name": "SINK_REDIS_TTL_TYPE",
+                                "value": "DISABLE"
+                            },
+                            {
+                                "name": "SINK_REDIS_TTL_VALUE",
+                                "value": "0"
+                            },
+                            {
+                                "name": "SINK_HTTP_SERVICE_URL"
+                            },
+                            {
+                                "name": "SINK_TYPE",
+                                "value": "bigquery"
+                            },
+                            {
+                                "name": "METRIC_STATSD_HOST",
+                                "value": "localhost"
+                            },
+                            {
+                                "name": "METRIC_STATSD_PORT",
+                                "value": "8125"
+                            },
+                            {
+                                "name": "METRIC_STATSD_TAGS",
+                                "value": "namespace=firehose,app=gopay-gl-aws-staging-globalstream-cominsurancetransaction-bigquery-firehose,sink=bigquery,datatype=protobuf,stream=gopay-gl-aws-staging-globalstream,team=gopay-de-app,proto=com.gofin.insurance.protos.TransactionMessage"
+                            },
+                            {
+                                "name": "SCHEMA_REGISTRY_STENCIL_ENABLE",
+                                "value": "true"
+                            },
+                            {
+                                "name": "SCHEMA_REGISTRY_STENCIL_URLS",
+                                "value": "https://i-gtfndata-systems-stencil.gtfdata.io/v1beta1/namespaces/gofin/schemas/insurance-protos"
+                            },
+                            {
+                                "name": "SCHEMA_REGISTRY_STENCIL_CACHE_AUTO_REFRESH",
+                                "value": "true"
+                            },
+                            {
+                                "name": "SCHEMA_REGISTRY_STENCIL_CACHE_TTL_MS",
+                                "value": "900000"
+                            },
+                            {
+                                "name": "SCHEMA_REGISTRY_STENCIL_FETCH_HEADERS"
+                            },
+                            {
+                                "name": "SCHEMA_REGISTRY_STENCIL_FETCH_BACKOFF_MIN_MS",
+                                "value": "60000"
+                            },
+                            {
+                                "name": "SCHEMA_REGISTRY_STENCIL_FETCH_RETRIES",
+                                "value": "4"
+                            },
+                            {
+                                "name": "SCHEMA_REGISTRY_STENCIL_FETCH_TIMEOUT_MS",
+                                "value": "10000"
+                            },
+                            {
+                                "name": "SCHEMA_REGISTRY_STENCIL_REFRESH_STRATEGY",
+                                "value": "VERSION_BASED_REFRESH"
+                            },
+                            {
+                                "name": "SINK_JDBC_TABLE_NAME"
+                            },
+                            {
+                                "name": "SINK_INFLUX_TAG_NAME_PROTO_INDEX_MAPPING"
+                            },
+                            {
+                                "name": "SINK_JDBC_UNIQUE_KEYS"
+                            },
+                            {
+                                "name": "_JAVA_OPTIONS",
+                                "value": "-Xmx1024m -Xms1024m"
+                            },
+                            {
+                                "name": "SINK_HTTP_JSON_BODY_TEMPLATE"
+                            },
+                            {
+                                "name": "JAVA_TOOL_OPTIONS",
+                                "value": "-javaagent:jolokia-jvm-agent.jar=port=8778,host=localhost"
+                            },
+                            {
+                                "name": "SINK_PROM_SERVICE_URL"
+                            },
+                            {
+                                "name": "SINK_PROM_REQUEST_TIMEOUT_MS",
+                                "value": "10000"
+                            },
+                            {
+                                "name": "SINK_PROM_RETRY_STATUS_CODE_RANGES",
+                                "value": "400-600"
+                            },
+                            {
+                                "name": "SINK_PROM_REQUEST_LOG_STATUS_CODE_RANGES",
+                                "value": "400-600"
+                            },
+                            {
+                                "name": "SINK_PROM_HEADERS"
+                            },
+                            {
+                                "name": "SINK_PROM_METRIC_NAME_PROTO_INDEX_MAPPING"
+                            },
+                            {
+                                "name": "SINK_PROM_LABEL_NAME_PROTO_INDEX_MAPPING"
+                            },
+                            {
+                                "name": "SINK_PROM_WITH_EVENT_TIMESTAMP",
+                                "value": "false"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_MODE",
+                                "value": "async"
+                            },
+                            {
+                                "name": "RETRY_FAIL_AFTER_MAX_ATTEMPTS_ENABLE",
+                                "value": "false"
+                            },
+                            {
+                                "name": "RETRY_MAX_ATTEMPTS",
+                                "value": "2147483647"
+                            },
+                            {
+                                "name": "INPUT_SCHEMA_PROTO_ALLOW_UNKNOWN_FIELDS_ENABLE",
+                                "value": "true"
+                            },
+                            {
+                                "name": "SINK_PROM_PROTO_EVENT_TIMESTAMP_INDEX"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_GOOGLE_CLOUD_PROJECT_ID",
+                                "value": "g-gopay-gl-data-raw"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_TABLE_NAME",
+                                "value": "com_insurance_transaction"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_DATASET_LABELS",
+                                "value": "application=ocean,component=bqdataset,lifecycle=store,orchestrator=firehose,owner=de,organization=gopaydata,landscape=gl,environment=integration,tenant=data_warehouse,deployment=globalstream"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_TABLE_LABELS",
+                                "value": "application=ocean,component=bqtable,lifecycle=store,orchestrator=firehose,owner=de,organization=gopaydata,landscape=gl,environment=integration,tenant=data_warehouse,deployment=globalstream"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_DATASET_NAME",
+                                "value": "globalstream"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_CREDENTIAL_PATH",
+                                "value": "/etc/secret/bigquery-sink/auth.json"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_TABLE_PARTITIONING_ENABLE",
+                                "value": "false"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_TABLE_PARTITION_KEY",
+                                "value": "event_timestamp"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_ROW_INSERT_ID_ENABLE",
+                                "value": "true"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_CLIENT_READ_TIMEOUT_MS",
+                                "value": "-1"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_CLIENT_CONNECT_TIMEOUT_MS",
+                                "value": "-1"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_TABLE_PARTITION_EXPIRY_MS",
+                                "value": "-86400000"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_DATASET_LOCATION",
+                                "value": "US"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_METADATA_NAMESPACE",
+                                "value": "__kafka_metadata"
+                            },
+                            {
+                                "name": "ERROR_TYPES_FOR_FAILING",
+                                "value": "DESERIALIZATION_ERROR,INVALID_MESSAGE_ERROR,UNKNOWN_FIELDS_ERROR"
+                            },
+                            {
+                                "name": "ERROR_TYPES_FOR_DLQ",
+                                "value": "DESERIALIZATION_ERROR,INVALID_MESSAGE_ERROR,UNKNOWN_FIELDS_ERROR,SINK_4XX_ERROR,SINK_5XX_ERROR,SINK_UNKNOWN_ERROR,DEFAULT_ERROR"
+                            },
+                            {
+                                "name": "ERROR_TYPES_FOR_RETRY",
+                                "value": "DEFAULT_ERROR"
+                            },
+                            {
+                                "name": "SINK_POOL_NUM_THREADS",
+                                "value": "8"
+                            },
+                            {
+                                "name": "SINK_POOL_QUEUE_POLL_TIMEOUT_MS",
+                                "value": "1000"
+                            },
+                            {
+                                "name": "SINK_BLOB_STORAGE_TYPE",
+                                "value": "GCS"
+                            },
+                            {
+                                "name": "SINK_BLOB_LOCAL_DIRECTORY",
+                                "value": "/tmp/firehose"
+                            },
+                            {
+                                "name": "SINK_BLOB_LOCAL_FILE_WRITER_TYPE",
+                                "value": "PARQUET"
+                            },
+                            {
+                                "name": "SINK_BLOB_LOCAL_FILE_WRITER_PARQUET_BLOCK_SIZE",
+                                "value": "134217728"
+                            },
+                            {
+                                "name": "SINK_BLOB_LOCAL_FILE_WRITER_PARQUET_PAGE_SIZE",
+                                "value": "1048576"
+                            },
+                            {
+                                "name": "SINK_BLOB_LOCAL_FILE_ROTATION_DURATION_MS",
+                                "value": "3600000"
+                            },
+                            {
+                                "name": "SINK_BLOB_LOCAL_FILE_ROTATION_MAX_SIZE_BYTES",
+                                "value": "268435456"
+                            },
+                            {
+                                "name": "SINK_BLOB_FILE_PARTITION_PROTO_TIMESTAMP_FIELD_NAME"
+                            },
+                            {
+                                "name": "SINK_BLOB_FILE_PARTITION_PROTO_TIMESTAMP_TIMEZONE",
+                                "value": "UTC"
+                            },
+                            {
+                                "name": "SINK_BLOB_FILE_PARTITION_TIME_DATE_PREFIX",
+                                "value": "dt="
+                            },
+                            {
+                                "name": "SINK_BLOB_FILE_PARTITION_TIME_GRANULARITY_TYPE",
+                                "value": "hour"
+                            },
+                            {
+                                "name": "SINK_BLOB_FILE_PARTITION_TIME_HOUR_PREFIX",
+                                "value": "hr="
+                            },
+                            {
+                                "name": "SINK_BLOB_OUTPUT_KAFKA_METADATA_COLUMN_NAME",
+                                "value": "__kafka_metadata"
+                            },
+                            {
+                                "name": "SINK_BLOB_OUTPUT_INCLUDE_KAFKA_METADATA_ENABLE",
+                                "value": "true"
+                            },
+                            {
+                                "name": "SINK_BLOB_GCS_GOOGLE_CLOUD_PROJECT_ID"
+                            },
+                            {
+                                "name": "SINK_BLOB_GCS_BUCKET_NAME"
+                            },
+                            {
+                                "name": "SINK_BLOB_GCS_CREDENTIAL_PATH"
+                            },
+                            {
+                                "name": "SINK_BLOB_GCS_RETRY_MAX_ATTEMPTS",
+                                "value": "10"
+                            },
+                            {
+                                "name": "SINK_BLOB_GCS_RETRY_TOTAL_TIMEOUT_MS",
+                                "value": "120000"
+                            },
+                            {
+                                "name": "SINK_BLOB_GCS_RETRY_INITIAL_DELAY_MS",
+                                "value": "1000"
+                            },
+                            {
+                                "name": "SINK_BLOB_GCS_RETRY_MAX_DELAY_MS",
+                                "value": "30000"
+                            },
+                            {
+                                "name": "SINK_BLOB_GCS_RETRY_DELAY_MULTIPLIER",
+                                "value": "2"
+                            },
+                            {
+                                "name": "SINK_BLOB_GCS_RETRY_INITIAL_RPC_TIMEOUT_MS",
+                                "value": "5000"
+                            },
+                            {
+                                "name": "SINK_BLOB_GCS_RETRY_RPC_TIMEOUT_MULTIPLIER",
+                                "value": "1"
+                            },
+                            {
+                                "name": "SINK_BLOB_GCS_RETRY_RPC_MAX_TIMEOUT_MS",
+                                "value": "5000"
+                            },
+                            {
+                                "name": "DLQ_SINK_ENABLE",
+                                "value": "true"
+                            },
+                            {
+                                "name": "DLQ_WRITER_TYPE",
+                                "value": "BLOB_STORAGE"
+                            },
+                            {
+                                "name": "DLQ_BLOB_STORAGE_TYPE",
+                                "value": "GCS"
+                            },
+                            {
+                                "name": "DLQ_RETRY_MAX_ATTEMPTS",
+                                "value": "2147483647"
+                            },
+                            {
+                                "name": "DLQ_RETRY_FAIL_AFTER_MAX_ATTEMPT_ENABLE",
+                                "value": "true"
+                            },
+                            {
+                                "name": "DLQ_GCS_GOOGLE_CLOUD_PROJECT_ID",
+                                "value": "g-gopay-gl-data-raw"
+                            },
+                            {
+                                "name": "DLQ_GCS_BUCKET_NAME",
+                                "value": "g-gopaydata-gl-dlq"
+                            },
+                            {
+                                "name": "DLQ_GCS_CREDENTIAL_PATH",
+                                "value": "/etc/secret/dlq-gcs/auth.json"
+                            },
+                            {
+                                "name": "DLQ_GCS_RETRY_MAX_ATTEMPTS",
+                                "value": "10"
+                            },
+                            {
+                                "name": "DLQ_GCS_RETRY_TOTAL_TIMEOUT_MS",
+                                "value": "120000"
+                            },
+                            {
+                                "name": "DLQ_GCS_RETRY_INITIAL_DELAY_MS",
+                                "value": "1000"
+                            },
+                            {
+                                "name": "DLQ_GCS_RETRY_MAX_DELAY_MS",
+                                "value": "30000"
+                            },
+                            {
+                                "name": "DLQ_GCS_RETRY_DELAY_MULTIPLIER",
+                                "value": "2"
+                            },
+                            {
+                                "name": "DLQ_GCS_RETRY_INITIAL_RPC_TIMEOUT_MS",
+                                "value": "5000"
+                            },
+                            {
+                                "name": "DLQ_GCS_RETRY_RPC_TIMEOUT_MULTIPLIER",
+                                "value": "1"
+                            },
+                            {
+                                "name": "DLQ_GCS_RETRY_RPC_MAX_TIMEOUT_MS",
+                                "value": "5000"
+                            },
+                            {
+                                "name": "DLQ_KAFKA_ACKS",
+                                "value": "all"
+                            },
+                            {
+                                "name": "DLQ_KAFKA_RETRIES",
+                                "value": "2147483647"
+                            },
+                            {
+                                "name": "DLQ_KAFKA_BATCH_SIZE",
+                                "value": "16384"
+                            },
+                            {
+                                "name": "DLQ_KAFKA_LINGER_MS",
+                                "value": "0"
+                            },
+                            {
+                                "name": "DLQ_KAFKA_BUFFER_MEMORY",
+                                "value": "33554432"
+                            },
+                            {
+                                "name": "DLQ_KAFKA_KEY_SERIALIZER",
+                                "value": "org.apache.kafka.common.serialization.ByteArraySerializer"
+                            },
+                            {
+                                "name": "DLQ_KAFKA_VALUE_SERIALIZER",
+                                "value": "org.apache.kafka.common.serialization.ByteArraySerializer"
+                            },
+                            {
+                                "name": "DLQ_KAFKA_BROKERS"
+                            },
+                            {
+                                "name": "DLQ_KAFKA_TOPIC",
+                                "value": "firehose-retry-topic"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_MANUAL_COMMIT_MIN_INTERVAL_MS",
+                                "value": "-1"
+                            },
+                            {
+                                "name": "INPUT_SCHEMA_DATA_TYPE",
+                                "value": "protobuf"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_DYNAMIC_SCHEMA_ENABLE",
+                                "value": "true"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_DEFAULT_DATATYPE_STRING_ENABLE",
+                                "value": "false"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_ADD_EVENT_TIMESTAMP_ENABLE",
+                                "value": "false"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_DEFAULT_COLUMNS"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_TABLE_CLUSTERING_ENABLE",
+                                "value": "false"
+                            },
+                            {
+                                "name": "SINK_BIGQUERY_TABLE_CLUSTERING_KEYS"
+                            },
+                            {
+                                "name": "SINK_BIGTABLE_GOOGLE_CLOUD_PROJECT_ID"
+                            },
+                            {
+                                "name": "SINK_BIGTABLE_INSTANCE_ID"
+                            },
+                            {
+                                "name": "SINK_BIGTABLE_CREDENTIAL_PATH",
+                                "value": "/etc/secret/blob-gcs-sink/auth.json"
+                            },
+                            {
+                                "name": "SINK_BIGTABLE_TABLE_ID"
+                            },
+                            {
+                                "name": "SINK_BIGTABLE_ROW_KEY_TEMPLATE"
+                            },
+                            {
+                                "name": "SINK_BIGTABLE_COLUMN_FAMILY_MAPPING"
+                            },
+                            {
+                                "name": "SINK_REDIS_HASHSET_FIELD_TO_COLUMN_MAPPING",
+                                "value": "{}"
+                            },
+                            {
+                                "name": "SINK_REDIS_LIST_DATA_FIELD_NAME"
+                            },
+                            {
+                                "name": "SINK_REDIS_KEY_VALUE_DATA_FIELD_NAME"
+                            },
+                            {
+                                "name": "AUTOSCALE_POLLING_INTERVAL",
+                                "value": "30"
+                            },
+                            {
+                                "name": "AUTOSCALE_OFFSET_RESET_POLICY",
+                                "value": "latest"
+                            },
+                            {
+                                "name": "AUTOSCALE_HPA_SCALEDOWN_PERCENT",
+                                "value": "10"
+                            },
+                            {
+                                "name": "AUTOSCALE_HPA_SCALEDOWN_STABILIZATION_WINDOW_SECS",
+                                "value": "300"
+                            },
+                            {
+                                "name": "AUTOSCALE_HPA_SCALEUP_PERIOD_SECS",
+                                "value": "5"
+                            },
+                            {
+                                "name": "AUTOSCALE_HPA_SCALEUP_PERCENT",
+                                "value": "300"
+                            },
+                            {
+                                "name": "SINK_GRPC_ARG_KEEPALIVE_TIME_MS",
+                                "value": "9223372036854775807"
+                            },
+                            {
+                                "name": "SINK_GRPC_ARG_KEEPALIVE_TIMEOUT_MS",
+                                "value": "20001"
+                            },
+                            {
+                                "name": "SINK_GRPC_ARG_DEADLINE_MS",
+                                "value": "-1"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_SECURITY_PROTOCOL",
+                                "value": "SASL_SSL"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_SSL_PROTOCOL",
+                                "value": "SSL"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_SASL_MECHANISM",
+                                "value": "OAUTHBEARER"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_SASL_LOGIN_CALLBACK_HANDLER_CLASS",
+                                "value": "io.gtflabs.kafka.security.oauthbearer.kubernetes.PodLoginCallbackHandler"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_SSL_TRUSTSTORE_LOCATION",
+                                "value": "/etc/kafka/certs/truststore.p12"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_SSL_TRUSTSTORE_PASSWORD",
+                                "value": "M46hguM42kfzGQ2kU"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_SASL_JAAS_CONFIG",
+                                "value": "org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required;"
+                            },
+                            {
+                                "name": "SOURCE_KAFKA_CONSUMER_CONFIG_SSL_TRUSTSTORE_TYPE",
+                                "value": "PKCS12"
+                            },
+                            {
+                                "name": "POD_NAME",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "metadata.name"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "NODE_NAME",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "spec.nodeName"
+                                    }
+                                }
+                            }
+                        ],
+                        "image": "gotocompany/firehose:0.9.10",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose",
+                        "resources": {
+                            "limits": {
+                                "cpu": "6",
+                                "memory": "2500Mi"
+                            },
+                            "requests": {
+                                "cpu": "100m",
+                                "memory": "1Gi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/work-dir",
+                                "name": "workdir"
+                            },
+                            {
+                                "mountPath": "/etc/secret/blob-gcs-sink",
+                                "name": "firehose-blob-gcs-sink-credential"
+                            },
+                            {
+                                "mountPath": "/etc/secret/bigquery-sink",
+                                "name": "firehose-bigquery-sink-credential"
+                            },
+                            {
+                                "mountPath": "/etc/secret/dlq-gcs",
+                                "name": "firehose-dlq-gcs-credential"
+                            },
+                            {
+                                "mountPath": "/etc/kafka/certs",
+                                "name": "s-go-gp-aws-central-kraft-globalstream-ssl",
+                                "readOnly": true
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kafka/serviceaccount",
+                                "name": "kafka-token"
+                            }
+                        ]
+                    },
+                    {
+                        "env": [
+                            {
+                                "name": "TEAM",
+                                "value": "gopay-de-app"
+                            },
+                            {
+                                "name": "APP_NAME",
+                                "value": "gopay-gl-aws-staging-globalstream-cominsurancetransaction-bigquery-firehose"
+                            },
+                            {
+                                "name": "DEPLOYMENT_NAME",
+                                "value": "gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose"
+                            },
+                            {
+                                "name": "CONSUMER_GROUP",
+                                "value": "gopay-gl-aws-staging-globalstream-cominsurancetransaction-bigquery-firehose-0002"
+                            },
+                            {
+                                "name": "FULL_ENVIRONMENT_NAME",
+                                "value": "integration"
+                            },
+                            {
+                                "name": "organization",
+                                "value": "gopaydata"
+                            },
+                            {
+                                "name": "landscape",
+                                "value": "gl"
+                            },
+                            {
+                                "name": "environment",
+                                "value": "g"
+                            },
+                            {
+                                "name": "projectID",
+                                "value": "gopay-gl-aws-staging"
+                            }
+                        ],
+                        "image": "telegraf:1.30.1-alpine",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "telegrafd",
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/etc/telegraf",
+                                "name": "telegraf-conf"
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "initContainers": [
+                    {
+                        "args": [
+                            "wget -O /work-dir/kafka-security-0.5.0-all.jar http://artifactory-gopay.golabs.io/artifactory/gopay-release-local/io/gtflabs/infrastructure-engineering/kafka-security/0.5.0/kafka-security-0.5.0-all.jar;"
+                        ],
+                        "command": [
+                            "/bin/sh",
+                            "-c"
+                        ],
+                        "image": "busybox",
+                        "imagePullPolicy": "Always",
+                        "name": "install",
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/work-dir",
+                                "name": "workdir"
+                            }
+                        ]
+                    }
+                ],
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "gopay-de-app",
+                "serviceAccountName": "gopay-de-app",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoSchedule",
+                        "key": "firehose",
+                        "operator": "Equal",
+                        "value": "enabled"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "firehose-telegraf-conf"
+                        },
+                        "name": "telegraf-conf"
+                    },
+                    {
+                        "emptyDir": {},
+                        "name": "workdir"
+                    },
+                    {
+                        "name": "firehose-blob-gcs-sink-credential",
+                        "secret": {
+                            "defaultMode": 420,
+                            "items": [
+                                {
+                                    "key": "token",
+                                    "path": "auth.json"
+                                }
+                            ],
+                            "secretName": "firehose-blob-gcs-sink-credential"
+                        }
+                    },
+                    {
+                        "name": "firehose-bigquery-sink-credential",
+                        "secret": {
+                            "defaultMode": 420,
+                            "items": [
+                                {
+                                    "key": "token",
+                                    "path": "auth.json"
+                                }
+                            ],
+                            "secretName": "firehose-bigquery-sink-credential"
+                        }
+                    },
+                    {
+                        "name": "firehose-dlq-gcs-credential",
+                        "secret": {
+                            "defaultMode": 420,
+                            "items": [
+                                {
+                                    "key": "token",
+                                    "path": "auth.json"
+                                }
+                            ],
+                            "secretName": "firehose-dlq-gcs-credential"
+                        }
+                    },
+                    {
+                        "name": "s-go-gp-aws-central-kraft-globalstream-ssl",
+                        "secret": {
+                            "defaultMode": 420,
+                            "secretName": "s-go-gp-aws-central-kraft-globalstream-ssl"
+                        }
+                    },
+                    {
+                        "name": "kafka-token",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "audience": "kafka",
+                                        "expirationSeconds": 600,
+                                        "path": "token"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "status": {
+        "availableReplicas": 1,
+        "conditions": [
+            {
+                "lastTransitionTime": "2024-06-06T14:00:30Z",
+                "lastUpdateTime": "2024-06-06T14:00:30Z",
+                "message": "Deployment has minimum availability.",
+                "reason": "MinimumReplicasAvailable",
+                "status": "True",
+                "type": "Available"
+            },
+            {
+                "lastTransitionTime": "2024-05-22T11:03:04Z",
+                "lastUpdateTime": "2024-06-07T04:04:58Z",
+                "message": "ReplicaSet \"gopay-gl-aws-staging-globalstream-comi-72e5f1-bigquery-firehose-6596dffc47\" has successfully progressed.",
+                "reason": "NewReplicaSetAvailable",
+                "status": "True",
+                "type": "Progressing"
+            }
+        ],
+        "observedGeneration": 2,
+        "readyReplicas": 1,
+        "replicas": 1,
+        "updatedReplicas": 1
+    }
+}

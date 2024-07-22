@@ -1,31 +1,19 @@
-const ENV = "staging";
-
-///IMPORTS
 const fs = require('fs');
 const path = require('path');
-
-// const resourceFolderPath = path.join('./prod-resource');
-const resourceFolderPath = path.join(`./${ENV}-resource`);
 const axios = require('axios');
+const {
+    ODIN_URL,
+    SHIELD_URL,
+    SHIELD_HEADER,
+    GROUP_ID,
+    PROJECT_ID,
+    ORG_ID,
+    NAMESPACE_ID,
+    USER_ID
+} = require("./constant");
 
-///CONSTANTS
-const ODIN_URL = "http://odin.gtfdata.io";
-const FIREHOSE_URL = `${ODIN_URL}/firehoses`;
-const SHIELD_URL = "http://shield.gtfdata.io/admin/v1beta1/resources";
-const USERNAME = "eka.winata@gopay.co.id";
-
-///IDS (will provide this)
-//Integration ID
-const ORG_ID = '4fcdc187-7cd4-4458-bb79-3948424bd192';
-const USER_ID = 'ea64963b-db16-4bad-b11f-9fc740b001b1';
-const PROJECT_ID = '327e4781-b23a-4fcb-8a58-340beb88c351';
-const GROUP_ID = 'eab991e9-c29b-4581-9b5f-47b7fa626871';
-const NAMESPACE_ID = 'odin_firehose';
-const SHIELD_HEADER = {
-    "X-Auth-Email" : USERNAME
-}
-
-const STREAM_NAME = ENV === 'staging' ? 's-go-gp-aws-central-kraft-globalstream' : 'p-go-gp-aws-central-kraft-globalstream';
+const STREAM_NAME = 'p-go-gp-aws-central-kraft-globalstream';
+const resourceFolderPath = path.join(`./production-resource`);
 
 const execute = () => {
     fs.readdir(resourceFolderPath, (err, files) => {
@@ -38,10 +26,10 @@ const execute = () => {
             const fileContent = fs.readFileSync(filePath, 'utf8');
             const existingFirehoseJson = JSON.parse(fileContent);
             const firehosePayload = buildTemporaryFirehosePayload(existingFirehoseJson);
-            await axios.post(FIREHOSE_URL, firehosePayload)
+            await axios.post(`${ODIN_URL}/firehoses`, firehosePayload)
                 .then(async ({data}) => {
                     console.log(`Success creating firehose: ${data.name}`)
-                    const shieldPayload = buildShieldPayload(firehosePayload);
+                    const shieldPayload = buildShieldPayload(firehosePayload.name);
                     await axios.post(SHIELD_URL, shieldPayload, {headers: SHIELD_HEADER})
                         .catch(error => console.log(`Error creating shield: ${error}`))
                 })
@@ -61,7 +49,7 @@ const buildTemporaryFirehosePayload = (firehose) => {
     const {metadata: {name}, spec: {template: {spec: {containers}}}} = firehose;
     const envAsMap = buildEnvMap(containers[0].env);
     const firehosePayload = {
-        title: name.replace(`gopay-gl-aws-${ENV}-globalstream`, `temp-gopay-gl-aws-${ENV}-globalstream`),
+        title: name.replace(`gopay-gl-aws-prod-globalstream`, `temp-gopay-gl-aws-prod-globalstream`),
         team: 'gopay-de-app',
         stream_name: STREAM_NAME,
         topic_name: envAsMap['SOURCE_KAFKA_TOPIC'],
@@ -77,7 +65,7 @@ const buildTemporaryFirehosePayload = (firehose) => {
             SINK_BIGQUERY_TABLE_PARTITIONING_ENABLED: 'true',
             SINK_BIGQUERY_TABLE_PARTITION_KEY: 'event_timestamp'
         },
-        projectID: "gopay-global-aws-staging",
+        projectID: "gopay-global-aws-production",
         replicas: 1,
         autoscale_min: 0,
         autoscale_enabled: false,
