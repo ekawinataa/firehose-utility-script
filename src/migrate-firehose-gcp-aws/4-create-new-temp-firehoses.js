@@ -67,7 +67,7 @@ const buildTemporaryFirehosePayload = (firehose) => {
             ERROR_TYPES_FOR_FAILING: "UNKNOWN_FIELDS_ERROR,DESERIALIZATION_ERROR",
             SCHEMA_REGISTRY_STENCIL_URLS: envAsMap['SCHEMA_REGISTRY_STENCIL_URLS'],
             SINK_BIGQUERY_TABLE_PARTITIONING_ENABLED: 'true',
-            SINK_BIGQUERY_TABLE_PARTITION_KEY: 'event_timestamp'
+            SINK_BIGQUERY_TABLE_PARTITION_KEY: 'eventTimestamp'
         },
         projectID: "gopay-global-aws-production",
         replicas: 1,
