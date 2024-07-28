@@ -12,8 +12,9 @@ const {
     USER_ID
 } = require("./constant");
 
+const BATCH = 1;
 const STREAM_NAME = 'p-go-gp-aws-central-kraft-globalstream';
-const resourceFolderPath = path.join(`./production-resource`);
+const resourceFolderPath = path.join(`./production/${BATCH}`);
 
 const execute = () => {
     fs.readdir(resourceFolderPath, (err, files) => {
