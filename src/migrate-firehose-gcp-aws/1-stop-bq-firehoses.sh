@@ -7,10 +7,12 @@
 #  k patch deployment $deployment -p '{"spec": {"replicas":0}}'
 #done
 
+batch="5"
 kubectl config set-context main-goku-eks-production-01
 kubectl config set-context --current --namespace=firehose
-deployments=($(ls production/1 | grep '^gopay-gl-.*-bigquery-firehose' | sed 's/.json//'))
+deployments=($(ls production/$batch | grep '^gopay-gl-.*-bigquery-firehose' | sed 's/.json//'))
 for deployment in "${deployments[@]}"; do
   ## Scale down the deployment, cannot use scale command, my role is not allowed
-  k patch deployment $deployment -p '{"spec": {"replicas":0}}'
+  echo "Scaling down $deployment to 0"
+  kubectl patch deployment $deployment -p '{"spec": {"replicas":0}}'
 done

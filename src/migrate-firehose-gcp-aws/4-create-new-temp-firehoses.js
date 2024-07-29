@@ -1,18 +1,22 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-const {
-    ODIN_URL,
-    SHIELD_URL,
-    SHIELD_HEADER,
-    GROUP_ID,
-    PROJECT_ID,
-    ORG_ID,
-    NAMESPACE_ID,
-    USER_ID
-} = require("./constant");
+const ODIN_URL = "http://odin.gtfdata.io";
+const SHIELD_URL = "http://shield.gtfdata.io/admin/v1beta1/resources";
+const PROJECT_ID_NAME = "gopay-global-aws-production";
 
-const BATCH = 1;
+//SHIELD CONSTANTS
+const ORG_ID = '4fcdc187-7cd4-4458-bb79-3948424bd192';
+const USER_ID = 'ea64963b-db16-4bad-b11f-9fc740b001b1';
+const PROJECT_ID = '8c5d8b28-716d-4a5a-87b1-cbe3610d48b1';
+const GROUP_ID = 'eab991e9-c29b-4581-9b5f-47b7fa626871';
+const NAMESPACE_ID = 'odin_firehose';
+const USERNAME = "eka.winata@gopay.co.id";
+const SHIELD_HEADER = {
+    "X-Auth-Email": USERNAME
+}
+
+const BATCH = '5';
 const STREAM_NAME = 'p-go-gp-aws-central-kraft-globalstream';
 const resourceFolderPath = path.join(`./production/${BATCH}`);
 
@@ -29,17 +33,16 @@ const execute = () => {
             const firehosePayload = buildTemporaryFirehosePayload(existingFirehoseJson);
             await axios.post(`${ODIN_URL}/firehoses`, firehosePayload)
                 .then(async ({data: {firehose: {name}}}) => {
-                    console.log(`Success creating firehose: ${name}`)
-                    await createShieldResource(firehosePayload);
+                    console.log(`Success creating firehose: ${name} from ${file.split('.')[0]}`);
+                    await createShieldResource(name);
                 })
                 .catch(error => console.log(`Error creating firehose: ${error}`));
-            console.log(`Successfully migrated ${existingFirehoseJson.title}`);
         });
     });
 }
 
-const createShieldResource = async (firehosePayload) => {
-    const shieldPayload = buildShieldPayload(firehosePayload.name);
+const createShieldResource = async (name) => {
+    const shieldPayload = buildShieldPayload(name);
     await axios.post(SHIELD_URL, shieldPayload, {headers: SHIELD_HEADER})
         .catch(error => console.log(`Error creating shield: ${error}`))
 }
@@ -86,7 +89,6 @@ const buildTemporaryFirehosePayload = (firehose) => {
         autoscale_hpa_scaledown_stabilization_window_secs: 300,
         created_by: USERNAME
     }
-    console.log(firehosePayload);
     return firehosePayload;
 }
 
@@ -99,7 +101,6 @@ const buildShieldPayload = (name) => {
         namespaceId: NAMESPACE_ID,
         userId: USER_ID
     }
-    console.log(payload);
     return payload;
 }
 
