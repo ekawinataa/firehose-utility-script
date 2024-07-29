@@ -5,7 +5,7 @@ const PROJECT_ID_NAME = "gopay-global-aws-production";
 //SHIELD CONSTANTS
 const ORG_ID = '4fcdc187-7cd4-4458-bb79-3948424bd192';
 const USER_ID = 'ea64963b-db16-4bad-b11f-9fc740b001b1';
-const PROJECT_ID = '327e4781-b23a-4fcb-8a58-340beb88c351';
+const PROJECT_ID = '8c5d8b28-716d-4a5a-87b1-cbe3610d48b1';
 const GROUP_ID = 'eab991e9-c29b-4581-9b5f-47b7fa626871';
 const NAMESPACE_ID = 'odin_firehose';
 const USERNAME = "eka.winata@gopay.co.id";
